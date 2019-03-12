@@ -1,0 +1,59 @@
+
+#wrapper
+    width: 100%
+    margin: 5rem auto
+    display: grid
+    grid-template-areas: "header" "driven" "reactive"
+    // grid-row: repeat( 3, 1fr )
+
+    header
+        grid-area: header
+        width: 90%
+        margin: 1rem auto
+        text-align: center
+    
+    .driven, .reactive
+        margin-top: 2rem
+        line-height: 2.3em
+
+        .row
+            width: 50%
+            margin: 0 auto
+
+            button
+                display: block
+                width: 100%
+    
+    .driven
+        grid-area: driven
+        display: flex
+        flex-direction: column
+        align-items: center
+
+        h4 
+            text-align: center
+            color: rgba( #212529, .8)
+        
+
+
+    .reactive
+        grid-area: reactive
+        display: flex
+        flex-direction: column
+        align-items: center
+        
+        h4 
+            text-align: center
+            color: rgba( #212529, .8)
+
+@media (min-width: 640px)
+    
+    #wrapper
+        grid-template-columns: 1fr 1fr 
+        grid-template-areas: "header header" "driven reactive" 
+
+        .driven, .reactive
+            margin-top: 3rem
+
+            .row
+                width: 90%
