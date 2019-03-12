@@ -32,10 +32,10 @@
               </ul>
             </div>
           </div>
-
+          <!-- 
           <div class="form-group">
             <button class="btn btn-default" type="button">Suggest an Username</button>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label for="email">Mail</label>
@@ -69,15 +69,6 @@
               [value]="opts.value">{{ opts.question }}</option>
           </select>
         </div>
-        <div class="form-group">
-          <textarea 
-            class="form-control"
-            name="textInput" 
-            rows="3"
-            ngModel
-            #textInput="ngModel"
-          ></textarea> 
-        </div>
 
         <div class="from-group">
           <div class="radio" *ngFor="let gender of genders" >
@@ -91,6 +82,16 @@
               {{gender}}
             </label>
           </div>
+        </div>
+
+        <div class="form-group">
+          <textarea 
+            class="form-control"
+            name="textInput" 
+            rows="3"
+            ngModel
+            #textInput="ngModel"
+          ></textarea> 
         </div>
 
         <button [disabled]="f.invalid" class="btn btn-primary" type="submit">Submit</button>

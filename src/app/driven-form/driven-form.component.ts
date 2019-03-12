@@ -28,7 +28,7 @@ export class DrivenFormComponent implements OnInit {
   email: string;
   secret: string;
   suggestion = [];
-  genders = ['Male', 'Female']
+  genders = ['male', 'female']
 
   constructor() { }
 
