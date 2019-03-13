@@ -27,29 +27,36 @@ export class DrivenFormComponent implements OnInit {
   name: string;
   email: string;
   secret: string;
+  gender: string;
+
   suggestion = [];
   genders = ['male', 'female']
+  submited: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
     //this.name = this.info.name;
     //this.email = this.info.email;
-    this.secret = this.info.secretInput;
+    //this.secret = this.info.secretInput;
 
   }
 
   onSubmit( ){
-    console.log( this.form.value );
-
-    // console.log(` name: ${this.info.name}
-    //               Email: ${this.info.email} 
-    //               Secret: ${this.info.secretInput}`)
+    this.form.reset();
   }
 
-  // onSubmit(form: NgForm){
-  //   console.log( form );
-  // }
+  reset(){
+    this.submited = true;
+    
+    this.name = this.form.value.userData.userInput;
+    this.email = this.form.value.userData.emailInput;
+    this.secret = this.form.value.secretInput;
+    this.gender = this.form.value.gender;
+
+    
+  }
+
 
   keyUpCheck( entered: string ){
     //console.log( entered.toUpperCase() );

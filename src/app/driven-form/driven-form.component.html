@@ -3,7 +3,8 @@
     <div class="col-md-12">
       <h3>Driven Form</h3>
 
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
+      <form (ngSubmit)="onSubmit()" #f="ngForm" >
+
         <div id="user-data" ngModelGroup="userData" >
           
           <div class="form-group">
@@ -43,15 +44,15 @@
               type="email" 
               id="email" 
               class="form-control"
-              name="mailInput"
+              name="emailInput"
               [ngModel]="email"
               required
               email
-              #mailInput="ngModel"
+              #emailInput="ngModel"
             >
-            <div class="alert alert-danger" *ngIf="!mailInput.valid && mailInput.touched" >
-              <p *ngIf="mailInput.errors.required">An email is required. </p>
-              <p *ngIf="mailInput.errors.email">Email format is wrong!</p>
+            <div class="alert alert-danger" *ngIf="!emailInput.valid && emailInput.touched" >
+              <p *ngIf="emailInput.errors.required">An email is required. </p>
+              <p *ngIf="emailInput.errors.email">Email format is wrong!</p>
             </div>
           </div>
         </div> <!-- user-data -->
@@ -94,9 +95,18 @@
           ></textarea> 
         </div>
 
-        <button [disabled]="f.invalid" class="btn btn-primary" type="submit">Submit</button>
+        <button [disabled]="f.invalid" (click)="reset()" class="btn btn-primary" type="submit">Submit</button>
       </form>
      
     </div>
+  </div>
+</div>
+<div class="row" *ngIf="submited">
+  <div class="col-md-12">
+    <h4>Your Data Submited. </h4>
+    <p>User Name : {{name}} </p>
+    <p>User Email : {{ email }} </p>
+    <p>Secret Question : {{ secret }} </p>
+    <p>User Geder : {{ gender }} </p>
   </div>
 </div>
