@@ -2,6 +2,56 @@
     <div class="row">
       <div class="col-md-12">
         <h3>Reactive Form</h3>
+
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
+
+            <!-- <div id="user-data" ngModelGroup="userData" > -->
+              
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input 
+                  class="form-control" 
+                  autocomplete="off"
+                  type="text" 
+                  id="username"
+                >
+                <!-- <div class="alert alert-danger" *ngIf="!userInput.valid && userInput.touched" >
+                   <p *ngIf="userInput.errors.required">Name is required</p>
+                </div> -->
+                
+              </div>
+    
+              <div class="form-group">
+                <label for="email">Mail</label>
+                <input 
+                  class="form-control"
+                  type="email" 
+                  id="email" 
+                >
+                <!-- <div class="alert alert-danger" *ngIf="!emailInput.valid && emailInput.touched" >
+                  <p *ngIf="emailInput.errors.required">An email is required. </p>
+                  <p *ngIf="emailInput.errors.email">Email format is wrong!</p>
+                </div> -->
+              </div> 
+          <!--  </div>  user-data -->
+    
+            
+    
+            <div class="form-group">
+              <div class="radio" *ngFor="let gender of genders" >
+                <label for="gender"> 
+                  <input 
+                    type="radio"
+                    [value]="gender"
+                  > {{gender}}
+                </label>
+              </div>
+            </div>
+    
+            
+            <button class="btn btn-primary" type="submit">Submit</button>
+          
+          </form>
   
         
       </div>
