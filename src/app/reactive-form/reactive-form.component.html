@@ -3,9 +3,9 @@
       <div class="col-md-12">
         <h3>Reactive Form</h3>
 
-        <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()"  >
 
-            <!-- <div id="user-data" ngModelGroup="userData" > -->
+            <div id="user-data" formGroupName="userData" >
               
               <div class="form-group">
                 <label for="username">Username</label>
@@ -14,10 +14,12 @@
                   autocomplete="off"
                   type="text" 
                   id="username"
+                  formControlName="username"
                 >
-                <!-- <div class="alert alert-danger" *ngIf="!userInput.valid && userInput.touched" >
-                   <p *ngIf="userInput.errors.required">Name is required</p>
-                </div> -->
+                <div class="alert alert-danger" *ngIf="username.invalid && username.touched" >
+                   <p *ngIf="username.errors.required">Name is required</p>
+                   <p *ngIf="username.errors.minlength">Min length is {{ username.errors.minlength.requiredLength }}</p>
+                </div> 
                 
               </div>
     
@@ -26,16 +28,15 @@
                 <input 
                   class="form-control"
                   type="email" 
-                  id="email" 
+                  id="email"
+                  formControlName="email" 
                 >
-                <!-- <div class="alert alert-danger" *ngIf="!emailInput.valid && emailInput.touched" >
-                  <p *ngIf="emailInput.errors.required">An email is required. </p>
-                  <p *ngIf="emailInput.errors.email">Email format is wrong!</p>
-                </div> -->
+                <div class="alert alert-danger" *ngIf="!email.valid && email.touched" >
+                  <p *ngIf="email.errors.required">An email is required. </p>
+                  <p *ngIf="email.errors.email">Email format is wrong!</p>
+                </div>
               </div> 
-          <!--  </div>  user-data -->
-    
-            
+            </div> <!-- user-data -->
     
             <div class="form-group">
               <div class="radio" *ngFor="let gender of genders" >
@@ -43,17 +44,39 @@
                   <input 
                     type="radio"
                     [value]="gender"
+                    formControlName="gender"
                   > {{gender}}
                 </label>
               </div>
+            </div>
+
+            <div 
+              formArrayName="emailsList"
+              class="form-group hobbies"  
+            >
+              <h4>Add your Hobbies</h4>
+              <p class="hobbies__p">Field Added with ArrayGroup</p>
+
+              <button class="btn btn-primary" type="button" (click)="addEmails()">Add a field</button>
+             
+              <div 
+                class="form-group hobbies__div"
+                *ngFor="let email of emailsList.controls; let i = index" >
+                
+                <input 
+                  type="text" 
+                  class="form-control"
+                  id="email-{{ i }}"
+                  [formControlName]="i"
+                >
+              </div>
+              
             </div>
     
             
             <button class="btn btn-primary" type="submit">Submit</button>
           
           </form>
-  
-        
       </div>
     </div>
   </div>
