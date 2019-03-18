@@ -5,7 +5,7 @@
 
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit()"  >
 
-            <div id="user-data" formGroupName="userData" >
+            <div id="user-data" formGroupName="userData" class="userData" >
               
               <div class="form-group">
                 <label for="username">Username</label>
@@ -19,11 +19,12 @@
                 <div class="alert alert-danger" *ngIf="username.invalid && username.touched" >
                    <p *ngIf="username.errors.required">Name is required</p>
                    <p *ngIf="username.errors.minlength">Min length is {{ username.errors.minlength.requiredLength }}</p>
+                   <p *ngIf="username.errors.isForbidden">{{ username.errors.isForbidden }}</p>
                 </div> 
-                
+                <p class="userData__p"> Forbiden name : "{{forbiddenNames[0]}}" and "{{forbiddenNames[1]}}" </p>
               </div>
     
-              <div class="form-group">
+              <div class="form-group email">
                 <label for="email">Mail</label>
                 <input 
                   class="form-control"
@@ -31,10 +32,15 @@
                   id="email"
                   formControlName="email" 
                 >
+                <div *ngIf="email.pending">
+                    <div  class="lds-ellipsis email__spinner"  ><div></div><div></div><div></div><div></div></div>
+                </div>
                 <div class="alert alert-danger" *ngIf="!email.valid && email.touched" >
                   <p *ngIf="email.errors.required">An email is required. </p>
                   <p *ngIf="email.errors.email">Email format is wrong!</p>
+                  <p *ngIf="email.errors.emailIsForbidden">Email : "{{email.errors.emailIsForbidden}}" is Forbidden.</p>
                 </div>
+                <p class="email__p">Email forbidden "test@gmail.com"</p>
               </div> 
             </div> <!-- user-data -->
     
@@ -74,7 +80,7 @@
             </div>
     
             
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button [disabled]="signupForm.invalid"  class="btn btn-primary" type="submit" (click)="reset()">Submit</button>
           
           </form>
       </div>

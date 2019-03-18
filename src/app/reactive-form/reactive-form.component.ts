@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-reactive-form',
@@ -9,7 +10,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 export class ReactiveFormComponent implements OnInit {
 
   genders = [ 'male', 'female'];
-  
+  forbiddenNames = [ 'Anthony', 'Andrade' ];
 
   signupForm: FormGroup;
 
@@ -23,8 +24,15 @@ export class ReactiveFormComponent implements OnInit {
     // });
     this.signupForm = this.fb.group({
       userData : this.fb.group({ 
-        username : [null, [Validators.required, Validators.minLength(3)] ],
-        email : [null, [Validators.required, Validators.email] ],
+        username : [
+          null, 
+          [Validators.required, Validators.minLength(3), this.forbibbenName.bind(this) ] 
+        ],
+        email : [
+          null, 
+          [Validators.required, Validators.email],
+          this.forbidenEmail
+        ],
       }),
       
       gender : ['male' ],
@@ -48,17 +56,53 @@ export class ReactiveFormComponent implements OnInit {
     return this.signupForm.get('emailsList') as FormArray;
   }
 
+  // costumized validator 
+  forbibbenName(control: AbstractControl){
+    if (this.forbiddenNames.indexOf(control.value) !== -1){
+      return { isForbidden: `The name : "${control.value}" is Forbidden` }
+    }
+
+    return null;
+  }
+
+  // Sinc test
+  forbidenEmail(control: AbstractControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === "test@gmail.com"){
+          resolve({'emailIsForbidden': control.value});
+        }else{
+          resolve(null);
+        }
+      }, 2000)
+    });
+    return promise;
+  }
+
+
   addEmails(){
     let control = new FormControl(null, Validators.required);
-    //let control = this.fb.group({ emails : [null, Validators.required]});
-   //(<FormArray>this.signupForm.get('emailsList')).push(control);
    this.emailsList.push(control);
   }
 
-  onSubmit( ){
-    console.log( this.signupForm );
-    //console.log(this.userData);
+  reset(){
+    console.log( this.signupForm.value );
+    
   }
+
+  onSubmit( ){
+    this.signupForm.reset({
+      userData : {
+        username : '',
+        email: ''
+      },
+      gender: 'male',
+      emailsList: ''
+    });
+  }
+
+ 
+  
 
   
 }

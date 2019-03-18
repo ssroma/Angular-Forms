@@ -7,16 +7,45 @@ input.ng-invalid.ng-touched
 input.ng-valid.ng-touched
     border: 1px solid green
 
+
+// to be extended
+%ps
+    font-size: .7rem
+    padding-top: 0
+    margin-left: .4rem
+    color: rgba(red, .5)    
+
+// username 
+.userData
+
+    &__p
+        @extend %ps
+        padding-top: .3rem
+
+// email
+.email 
+    position: relative
+
+    &__spinner
+        position: absolute
+        top: 1.2rem
+        right: 0
+    &__p
+        @extend %ps
+        padding-top: .3rem
+
+// hobies     
 .hobbies
 
     h4
         font-size: 1.3rem
         margin-bottom: 0rem
     &__p
-        font-size: .7rem
-        padding-top: 0
-        margin-left: .4rem
-        color: rgba(red, .5)
+        @extend %ps
+        // font-size: .7rem
+        // padding-top: 0
+        // margin-left: .4rem
+        // color: rgba(red, .5)
 
     &__div
         margin-top: .8rem
